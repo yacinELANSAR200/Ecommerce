@@ -4,7 +4,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { ButtonModule } from 'primeng/button';
 import { MessagesModule } from 'primeng/messages';
 import { PasswordModule } from 'primeng/password';
-
+import { AutoFocusModule } from 'primeng/autofocus';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
@@ -24,6 +24,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         PasswordModule,
         ToastModule,
         NgxSpinnerModule,
+        AutoFocusModule,
   ],
   exports:[
     FormsModule,
@@ -35,6 +36,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         PasswordModule,
         ToastModule,
         NgxSpinnerModule,
+        AutoFocusModule,
   ],
   providers: [MessageService],
 })
