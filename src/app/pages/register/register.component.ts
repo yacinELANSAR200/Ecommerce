@@ -15,7 +15,7 @@ import { ButtonModule } from 'primeng/button';
 import { MessagesModule } from 'primeng/messages';
 import { PasswordModule } from 'primeng/password';
 import { AuthService } from '../../core/services/auth.service';
-import { IRegistration } from '../../core/interfaces/iregistration';
+import { IRegistration } from '../../core/interfaces/http';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
@@ -47,11 +47,19 @@ export class RegisterComponent {
     private _router: Router
   ) {}
   registrationForm: FormGroup = this._formBuilder.group({
-    userName: [
+    firstName: [
       '',
       [Validators.required, Validators.minLength(3), Validators.maxLength(20)],
     ],
-    email: ['', [Validators.required, Validators.email]],
+    lastName: [
+      '',
+      [Validators.required, Validators.minLength(3), Validators.maxLength(20)],
+    ],
+    username: [
+      '',
+      [Validators.required, Validators.minLength(3), Validators.maxLength(20)],
+    ],
+
     password: [
       '',
       [Validators.required, Validators.minLength(3), Validators.maxLength(20)],
@@ -61,12 +69,16 @@ export class RegisterComponent {
       [Validators.required, this.passwordMatchValidator('password')],
     ],
   });
-  get userName() {
-    return this.registrationForm.get('userName');
+  get firstName() {
+    return this.registrationForm.get('firstName');
   }
-  get email() {
-    return this.registrationForm.get('email');
+  get lastName() {
+    return this.registrationForm.get('lastName');
   }
+  get username() {
+    return this.registrationForm.get('username');
+  }
+
   get password() {
     return this.registrationForm.get('password');
   }
@@ -86,8 +98,9 @@ export class RegisterComponent {
   submit() {
     if (this.registrationForm.valid) {
       this.signUp({
-        userName: this.userName?.value,
-        email: this.email?.value,
+        firstName: this.firstName?.value,
+        lastName: this.lastName?.value,
+        username: this.username?.value,
         password: this.password?.value,
       });
     } else {

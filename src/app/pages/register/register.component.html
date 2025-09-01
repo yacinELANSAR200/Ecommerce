@@ -9,14 +9,14 @@
           </p-inputGroupAddon>
           <input
             pInputText
-            placeholder="Username"
-            formControlName="userName"
+            placeholder="firstName"
+            formControlName="firstName"
             class="w-full border-round-md border-1 border-black-alpha-20"
           />
         </p-inputGroup>
         <div class="validation-msg">
-          @if (userName?.touched ) {
-          @if(userName?.getError('required')) {
+          @if (firstName?.touched ) {
+          @if(firstName?.getError('required')) {
           <p-messages
             [value]="[
               {
@@ -29,7 +29,7 @@
             [closable]="false"
           />
           }
-          @if(userName?.getError('minlength')) {
+          @if(firstName?.getError('minlength')) {
           <p-messages
             [value]="[
               {
@@ -42,7 +42,7 @@
             [closable]="false"
           />
           }
-          @if(userName?.getError('maxlength')) {
+          @if(firstName?.getError('maxlength')) {
           <p-messages
             [value]="[
               {
@@ -61,48 +61,116 @@
       <div class="field">
         <p-inputGroup>
           <p-inputGroupAddon>
-            <i class="pi pi-envelope"></i>
+            <i class="pi pi-user"></i>
           </p-inputGroupAddon>
           <input
             pInputText
-            placeholder="Email"
-            formControlName="email"
+            placeholder="lastName"
+            formControlName="lastName"
             class="w-full border-round-md border-1 border-black-alpha-20"
           />
         </p-inputGroup>
         <div class="validation-msg">
-          @if (email?.touched )
-          {
-            @if(email?.getError('required')) {
+          @if (lastName?.touched ) {
+          @if(lastName?.getError('required')) {
           <p-messages
             [value]="[
               {
                 severity: 'error',
                 summary: 'validation error',
-                detail: 'email is required'
+                detail: 'name is required'
               }
             ]"
             [enableService]="false"
             [closable]="false"
           />
           }
-          @if(email?.getError('email')) {
+          @if(lastName?.getError('minlength')) {
           <p-messages
             [value]="[
               {
                 severity: 'error',
                 summary: 'validation error',
-                detail: 'email not valid'
+                detail: 'name minlength is 3'
               }
             ]"
             [enableService]="false"
             [closable]="false"
           />
           }
-
+          @if(lastName?.getError('maxlength')) {
+          <p-messages
+            [value]="[
+              {
+                severity: 'error',
+                summary: 'validation error',
+                detail: 'name maxlength is 20'
+              }
+            ]"
+            [enableService]="false"
+            [closable]="false"
+          />
+          }
         }
         </div>
       </div>
+      <div class="field">
+        <p-inputGroup>
+          <p-inputGroupAddon>
+            <i class="pi pi-user"></i>
+          </p-inputGroupAddon>
+          <input
+            pInputText
+            placeholder="username"
+            formControlName="username"
+            class="w-full border-round-md border-1 border-black-alpha-20"
+          />
+        </p-inputGroup>
+        <div class="validation-msg">
+          @if (username?.touched ) {
+          @if(username?.getError('required')) {
+          <p-messages
+            [value]="[
+              {
+                severity: 'error',
+                summary: 'validation error',
+                detail: 'name is required'
+              }
+            ]"
+            [enableService]="false"
+            [closable]="false"
+          />
+          }
+          @if(username?.getError('minlength')) {
+          <p-messages
+            [value]="[
+              {
+                severity: 'error',
+                summary: 'validation error',
+                detail: 'name minlength is 3'
+              }
+            ]"
+            [enableService]="false"
+            [closable]="false"
+          />
+          }
+          @if(username?.getError('maxlength')) {
+          <p-messages
+            [value]="[
+              {
+                severity: 'error',
+                summary: 'validation error',
+                detail: 'name maxlength is 20'
+              }
+            ]"
+            [enableService]="false"
+            [closable]="false"
+          />
+          }
+        }
+        </div>
+      </div>
+
       <div class="field">
         <p-inputGroup>
           <p-inputGroupAddon>

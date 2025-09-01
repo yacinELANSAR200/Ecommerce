@@ -1,1 +1,1 @@
-export const baseUrl:string="https://fakestoreapi.com/users";
+export const baseUrl:string="https://dummyjson.com";
