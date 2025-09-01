@@ -1,42 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import {
-  AbstractControl,
   FormBuilder,
   FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
-  ValidationErrors,
-  ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { ButtonModule } from 'primeng/button';
-import { MessagesModule } from 'primeng/messages';
-import { PasswordModule } from 'primeng/password';
+
 import { AuthService } from '../../core/services/auth.service';
-import { ILogin, IRegistration } from '../../core/interfaces/http';
+import { ILogin } from '../../core/interfaces/http';
 import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
-import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+import {  NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
+import { SharedModule } from '../../shared/module/shared/shared.module';
+
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
-    FormsModule,
-    InputGroupModule,
-    InputGroupAddonModule,
-    ButtonModule,
-    ReactiveFormsModule,
-    MessagesModule,
-    PasswordModule,
-    ToastModule,
-    NgxSpinnerModule,
+    SharedModule
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
-    providers: [MessageService],
+  encapsulation:ViewEncapsulation.None
+
 
 })
 export class LoginComponent {

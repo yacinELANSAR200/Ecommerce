@@ -1,42 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
   FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
   ValidationErrors,
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { InputGroupModule } from 'primeng/inputgroup';
-import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { ButtonModule } from 'primeng/button';
-import { MessagesModule } from 'primeng/messages';
-import { PasswordModule } from 'primeng/password';
+
 import { AuthService } from '../../core/services/auth.service';
 import { IRegistration } from '../../core/interfaces/http';
 import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
-import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+import {NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
+import { SharedModule } from '../../shared/module/shared/shared.module';
 @Component({
   selector: 'app-register',
   standalone: true,
   imports: [
-    FormsModule,
-    InputGroupModule,
-    InputGroupAddonModule,
-    ButtonModule,
-    ReactiveFormsModule,
-    MessagesModule,
-    PasswordModule,
-    ToastModule,
-    NgxSpinnerModule,
+  SharedModule
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
-  providers: [MessageService],
+
+  encapsulation: ViewEncapsulation.None,
 })
 export class RegisterComponent {
   constructor(
@@ -116,7 +103,11 @@ export class RegisterComponent {
       next: (response) => {
         if (response.id) {
           this.show('success', 'Success', 'Sucess Register');
-          this._router.navigate(['login']);
+          this._authService
+            .login({ username: 'emilys', password: 'emilyspass' })
+            .subscribe((next) => {
+              this._router.navigate(['user']);
+            });
         }
         this._ngxSpinnerService.hide();
       },
