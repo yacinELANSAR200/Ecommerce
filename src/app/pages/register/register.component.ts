@@ -18,6 +18,8 @@ import { AuthService } from '../../core/services/auth.service';
 import { IRegistration } from '../../core/interfaces/iregistration';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -30,16 +32,19 @@ import { ToastModule } from 'primeng/toast';
     MessagesModule,
     PasswordModule,
     ToastModule,
+    NgxSpinnerModule,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
-  providers: [MessageService]
+  providers: [MessageService],
 })
 export class RegisterComponent {
   constructor(
     private _formBuilder: FormBuilder,
     private _authService: AuthService,
-    private _messageService: MessageService
+    private _messageService: MessageService,
+    private _ngxSpinnerService: NgxSpinnerService,
+    private _router: Router
   ) {}
   registrationForm: FormGroup = this._formBuilder.group({
     userName: [
@@ -93,18 +98,20 @@ export class RegisterComponent {
     }
   }
   signUp(UserData: IRegistration): void {
-    this._authService.register(UserData).subscribe(
-      {
-        next:(response)=>{
-          if (response.id) {
-              this.show("success","Success","Sucess Register")
-          }
-        },
-        error:(err)=>{
-          this.show("error","Error",err.error.error)
+    this._ngxSpinnerService.show();
+    this._authService.register(UserData).subscribe({
+      next: (response) => {
+        if (response.id) {
+          this.show('success', 'Success', 'Sucess Register');
+          this._router.navigate(['login']);
         }
-      }
-    );
+        this._ngxSpinnerService.hide();
+      },
+      error: (err) => {
+        this.show('error', 'Error', err.error.error);
+        this._ngxSpinnerService.hide();
+      },
+    });
   }
   show(severity: string, summary: string, detail: string) {
     this._messageService.add({
