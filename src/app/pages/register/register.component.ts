@@ -14,6 +14,10 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { ButtonModule } from 'primeng/button';
 import { MessagesModule } from 'primeng/messages';
 import { PasswordModule } from 'primeng/password';
+import { AuthService } from '../../core/services/auth.service';
+import { IRegistration } from '../../core/interfaces/iregistration';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -25,13 +29,18 @@ import { PasswordModule } from 'primeng/password';
     ReactiveFormsModule,
     MessagesModule,
     PasswordModule,
-   
-],
+    ToastModule,
+  ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
+  providers: [MessageService]
 })
 export class RegisterComponent {
-  constructor(private _formBuilder: FormBuilder) {}
+  constructor(
+    private _formBuilder: FormBuilder,
+    private _authService: AuthService,
+    private _messageService: MessageService
+  ) {}
   registrationForm: FormGroup = this._formBuilder.group({
     userName: [
       '',
@@ -64,18 +73,44 @@ export class RegisterComponent {
       if (!rePass.parent) return null;
       const password = rePass.parent.get(passwordControlName)?.value;
       const confirm = rePass.value;
-      return password === confirm && confirm!=='' ? null : { passwordMismatch: true };
+      return password === confirm && confirm !== ''
+        ? null
+        : { passwordMismatch: true };
     };
   }
   submit() {
-    if (this.registrationForm.invalid) {
-      this.registrationForm.markAllAsTouched()
-      Object.keys(this.registrationForm.controls).forEach((control)=>
-      this.registrationForm.controls[control].markAsDirty()
-      )
+    if (this.registrationForm.valid) {
+      this.signUp({
+        userName: this.userName?.value,
+        email: this.email?.value,
+        password: this.password?.value,
+      });
     } else {
-      console.log(this.registrationForm);
-
+      this.registrationForm.markAllAsTouched();
+      Object.keys(this.registrationForm.controls).forEach((control) =>
+        this.registrationForm.controls[control].markAsDirty()
+      );
     }
+  }
+  signUp(UserData: IRegistration): void {
+    this._authService.register(UserData).subscribe(
+      {
+        next:(response)=>{
+          if (response.id) {
+              this.show("success","Success","Sucess Register")
+          }
+        },
+        error:(err)=>{
+          this.show("error","Error",err.error.error)
+        }
+      }
+    );
+  }
+  show(severity: string, summary: string, detail: string) {
+    this._messageService.add({
+      severity: severity,
+      summary: summary,
+      detail: detail,
+    });
   }
 }
