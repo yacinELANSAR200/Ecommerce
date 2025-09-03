@@ -106,7 +106,7 @@ export class RegisterComponent {
           this._authService
             .login({ username: 'emilys', password: 'emilyspass' })
             .subscribe((next) => {
-              this._router.navigate(['user']);
+              this._router.navigate(['home']);
             });
         }
         this._ngxSpinnerService.hide();

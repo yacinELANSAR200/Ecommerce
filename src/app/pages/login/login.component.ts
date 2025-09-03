@@ -68,13 +68,12 @@ constructor(
     this._ngxSpinnerService.show();
     this._authService.login(UserData).subscribe({
       next: (response) => {
-        console.log("response",response)
         if (response.id) {
           this.show('success', 'Success', 'Sucess login');
           localStorage.setItem("token",response.accessToken)
         }
         this._ngxSpinnerService.hide();
-        this._router.navigate(['user']);
+        this._router.navigate(['home']);
       },
       error: (err) => {
         console.log("err",err)

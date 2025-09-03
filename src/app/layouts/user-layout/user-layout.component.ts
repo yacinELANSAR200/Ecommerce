@@ -7,7 +7,7 @@ import { HomeComponent } from "../../pages/home/home.component";
 @Component({
   selector: 'app-user-layout',
   standalone: true,
-  imports: [UserNavComponent, UserFooterComponent, HomeComponent],
+  imports: [UserNavComponent, UserFooterComponent, RouterOutlet],
   templateUrl: './user-layout.component.html',
   styleUrl: './user-layout.component.css'
 })
