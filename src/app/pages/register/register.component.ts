@@ -11,15 +11,14 @@ import {
 import { AuthService } from '../../core/services/auth.service';
 import { IRegistration } from '../../core/interfaces/http';
 import { MessageService } from 'primeng/api';
-import {NgxSpinnerService } from 'ngx-spinner';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
 import { SharedModule } from '../../shared/module/shared/shared.module';
+import { UserDataService } from '../../core/services/user-data.service';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [
-  SharedModule
-  ],
+  imports: [SharedModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 
@@ -31,7 +30,8 @@ export class RegisterComponent {
     private _authService: AuthService,
     private _messageService: MessageService,
     private _ngxSpinnerService: NgxSpinnerService,
-    private _router: Router
+    private _router: Router,
+    private _userDataService: UserDataService
   ) {}
   registrationForm: FormGroup = this._formBuilder.group({
     firstName: [
@@ -108,6 +108,9 @@ export class RegisterComponent {
             .subscribe((next) => {
               this._router.navigate(['home']);
             });
+          this._userDataService.userName.next(response.username);
+          localStorage.setItem('name', response.username);
+          localStorage.setItem('userID', response.id);
         }
         this._ngxSpinnerService.hide();
       },

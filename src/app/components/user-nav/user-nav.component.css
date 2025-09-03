@@ -1,0 +1,25 @@
+.p-badge {
+  background-color: orange !important;
+}
+.bg-orange-400{
+
+  background-color: orange !important;
+ }
+
+.user-name::before{
+  position: absolute;
+  content: "";
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%,100%);
+  border-style: solid;
+  border-width: 15px;
+  border-color:  orange transparent transparent transparent;
+}
+
+.logout{
+  bottom: 0;
+  transform: translate(-60%, calc(100% + 15px));
+
+}
+
